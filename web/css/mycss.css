@@ -1,0 +1,146 @@
+/**
+ * Layout generated with http://layzilla.com
+ * Layout generator is free of use.
+ * We appreciate if you leave this comment block in commercial use of generator.
+ * All comment and ideas can be submitted to us using contacts below.
+ *
+ *    site: www.jmholding.com
+ *   email: info@jmholding.ru
+ *  twitter: @jmholding
+ */
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%; 
+}
+
+.content {
+	min-height: 100%;
+	position: relative;
+	overflow: auto;
+	z-index: 0;		
+}
+
+.isinya {
+	width: 80%;
+	background-color: #FFFCFC;	
+}
+
+.isirender {
+width: 60%;
+margin-left:0;
+/*background-color: #FFFCFC;*/ 
+}
+
+.background {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.top_block {
+	width: 100%;
+	display: block; 
+}
+
+.bottom_block {
+	position: absolute;
+	width: 100%;
+	display: block;
+	bottom: 0; 
+}
+
+.left_block {
+	display: block;
+	float: left; 
+}
+
+.right_block {
+	display: block;
+	float: right; 
+}
+
+.center_block {
+	display: block;
+	width: auto; 
+}
+
+.judul {
+	width: 100%;
+	height: 120px;
+	background-color: green;
+	/*background-image: url(/images/donate.gif);*/
+  	/*background-repeat: no-repeat;*/
+}
+
+.background.menu {
+	height: auto !important;
+	padding-bottom: 0;
+	right: 0;
+	width: 15%;
+	background-color: black;
+	margin-top: 120px;
+	margin-bottom: 70px;	 
+}
+
+.menu {
+	height: auto;
+	width: 15%;
+	padding-bottom: 70px;
+}
+
+.footer {
+	width: 100%;
+	height: 70px;
+	background-color: purple;
+}
+
+ul {
+    list-style: none;
+    line-height: 1em;
+    font-size: 3vw;
+}
+
+ul li:before {
+    list-style: none;
+}
+
+.container {
+    width: 100%;
+}
+
+a {
+    color: #D50000;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #09B617;
+    text-decoration: underline;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #B00707;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #FFF;
+}
+
+thead  th{
+	background-color: yellow;
+}
+thead  td{
+	background-color: yellow;
+}
+
+.tulisan {
+	color: yellow;
+}
