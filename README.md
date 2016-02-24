@@ -1,7 +1,11 @@
 Yii 2 Basic Project Template
 ============================
 
-Yii 2 Basic, this project prepared for 2nd project D4 TI
+Yii 2 Basic, this project prepared for 2nd project D4 TI Politeknik Pos Indoesia
+uses: 
+restful ws
+google map
+other extensions
 
 DIRECTORY STRUCTURE
 -------------------
