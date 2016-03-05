@@ -1,7 +1,7 @@
 Yii 2 Basic Project Template
 ============================
 
-Yii 2 Basic, this project prepared for 1st and 2nd project (technical template) D4 TI Politeknik Pos Indoesia, uses:
+Yii 2 Basic, this project prepared for 1st and 2nd project (technical template) **D4 TI** Politeknik Pos Indoesia, uses:
       
       restful ws
       google map
