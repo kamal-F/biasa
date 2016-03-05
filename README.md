@@ -7,8 +7,6 @@ Yii 2 Basic, this project prepared for 1st and 2nd project (technical template) 
       google map
       other extensions
       
-ssss
-
 
 DIRECTORY STRUCTURE
 -------------------
