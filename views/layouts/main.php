@@ -3,13 +3,13 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\dropdown;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
-use app\models\Validasi;
-
+use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -19,10 +19,9 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico?v=1" type="image/x-icon" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>    
+    <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -30,55 +29,82 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('@web/images/logo-nav.png', ['width'=>'60px','alt'=>"Brand"]),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse black navbar-fixed-top',
         ],
+
     ]);
-    
-    $menu[] = ['label' => 'Home', 'url' => ['/site/index']];
-    
-    $subMenuBarang = [    		
-    		['label' => 'kelola', 'url' => ['/barang/index']],
-    		'<li class="divider"></li>',
-    		['label' => 'lihat', 'url' => ['/barang/lihat']],
-    		'<li class="divider"></li>',
-    		['label' => 'grafik', 'url' =>['/barang/chart']],
-    		'<li class="divider"></li>',
-    		['label' => 'export laporan', 'url' =>['/barang/export']],
-    ];
-    
-    if(Validasi::cekRole('Admin') || Validasi::cekRole('Customer service')){
-    	$menu[] = ['label' => 'barang', 'items' => $subMenuBarang];    	
-    }
-    
-    
-    
-    if(Validasi::cekRole('Admin')){
-    	$menu[] = ['label' => 'kantor', 'url' => ['/kantor/index']];
-    }
-    
-    $menu[] = ['label' => 'About', 'url' => ['/site/about']];
-    $menu[] = ['label' => 'Contact', 'url' => ['/site/contact']];
-        
-    
-    if(Yii::$app->user->isGuest){
-    	$menu[] = ['label' => 'daftar', 'url' => ['/site/signup']];
-    	$menu[] = ['label' => 'login', 'url' => ['/site/login']];
-    } else {    	
-    	$menu[] = [
-    				'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-    				'url' => ['/site/logout'],
-    				'linkOptions' => ['data-method' => 'post']
-    		];
-    }
-    
+ if(Yii::$app->user->can('Admin'))
+ {
+echo Nav::widget([
+    'options' => ['class' => 'navbar-nav navbar-right'],
+    'encodeLabels' => false,
+
+    'items' => [      
+
+        ['label' => '<span class="glyphicon glyphicon-home"></span>', 'url' => ['/']],
+        ['label' => '<span class="glyphicon glyphicon-user"></span> Anggota', 'url' => ['/anggota/index']],
+        ['label' => '<span class="glyphicon glyphicon-user"></span> User', 'url' => ['/user/index']],
+        ['label' => '<span class="glyphicon glyphicon-cd"></span> Kaset', 'url' => ['/kaset/index']],
+        ['label' => '<span class="glyphicon glyphicon-transfer"></span> Transaksi', 'url' => ['tpinjam/index']],
+  
+
+       Yii::$app->user->isGuest ?  
+
+            ['label' => '<span class="glyphicon glyphicon-user"></span> Login',  'url' => ['login/login']] :
+            ['label' => '<span class="glyphicon glyphicon-off"></span> Logout (' . Html::encode(Yii::$app->user->identity->username) . ')',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']],
+    ],
+]);
+}else if(Yii::$app->user->can('Pemilik'))
+{
+            echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'encodeLabels' => false,
+
+            'items' => [      
+
+                ['label' => '<span class="glyphicon glyphicon-home"></span>', 'url' => ['/']],
+                ['label' => '<span class="glyphicon glyphicon-th-list"></span> Laporan', 'url' => ['/pemilik/index']],
+                ['label' => '<span class="glyphicon glyphicon-user"></span> User', 'url' => ['/user/index']],
+               // ['label' => '<span class="glyphicon glyphicon-cd"></span> Kaset', 'url' => ['/kaset/index']],
+                //['label' => '<span class="glyphicon glyphicon-transfer"></span> Transaksi', 'url' => ['tpinjam/index']],
+                
+
+               Yii::$app->user->isGuest ?  
+
+                    ['label' => '<span class="glyphicon glyphicon-user"></span> Login',  'url' => ['/login/login']] :
+                    ['label' => '<span class="glyphicon glyphicon-off"></span> Logout (' . Html::encode(Yii::$app->user->identity->username) . ')',
+                        'url' => ['/site/logout'],
+                        'linkOptions' => ['data-method' => 'post']],
+            ],
+        ]);
+}else{
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' =>$menu,
-    		
-    ]);
+    'options' => ['class' => 'navbar-nav navbar-right'],
+    'encodeLabels' => false,
+
+    'items' => [      
+
+        ['label' => '<span class="glyphicon glyphicon-home"></span>', 'url' => ['/']],
+        ['label' => '<span class="glyphicon glyphicon-user"></span> Anggota', 'url' => ['/anggota/index']],
+       // ['label' => '<span class="glyphicon glyphicon-user"></span> Pegawai', 'url' => ['/admin/index']],
+        ['label' => '<span class="glyphicon glyphicon-cd"></span> Kaset', 'url' => ['/kaset/index']],
+        ['label' => '<span class="glyphicon glyphicon-transfer"></span> Transaksi', 'url' => ['tpinjam/index']],
+   
+
+       Yii::$app->user->isGuest ?  
+
+            ['label' => '<span class="glyphicon glyphicon-user"></span> Login',  'url' => ['login/login']] :
+            ['label' => '<span class="glyphicon glyphicon-off"></span> Logout (' . Html::encode(Yii::$app->user->identity->username) . ')',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']],
+    ],
+]);
+}
     NavBar::end();
     ?>
 
@@ -86,15 +112,16 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+      
+<footer class="footer black">
+    <div class="container white-text">
+        <p class="pull-left"><a class="red-text" href="http://localhost:8080/advanced/backend/web/"> &copy; Rental DxD</a> (Tempat Penyewaan VCD/DVD) <?= date('d M Y') ?></p>
+       
+        <p class="pull-right">Proyek Implementasi <a href="http://www.yiiframework.com"> Framework Yii 2.0.6 </a> </p>
     </div>
 </footer>
 
